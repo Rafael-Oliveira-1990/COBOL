@@ -1,0 +1,11 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00010000
+//*--------------------------------------                               00010102
+//*     SORT COM DUAS ENTRADAS DE ARQUIVO                               00011002
+//*--------------------------------------                               00012002
+//STEP1    EXEC  PGM=SORT                                               00020000
+//SYSOUT   DD    SYSOUT=*                                               00030000
+//SORTIN   DD    DSN=GR.F2404.SORTB2,DISP=SHR                           00040000
+//         DD    DSN=GR.F2404.SORTBASE,DISP=SHR                         00041001
+//SORTOUT  DD    DSN=GR.F2404.SORTB2,DISP=SHR                           00050000
+//SYSIN    DD    *                                                      00060000
+ SORT FIELDS=(16,4,CH,A,1,15,CH,A),FORMAT=CH                            00070000

@@ -1,0 +1,12 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00000101
+//*--------------------------------------------                         00000205
+//*====CLASSIFICAR ATRAVES DE UMA CHAVE E SOMAR                         00000305
+//*                  OS REGISTROS IGUAIS                                00000405
+//*--------------------------------------------                         00000505
+//STEP1    EXEC  PGM=SORT                                               00000801
+//SYSOUT   DD    SYSOUT=*                                               00000901
+//SORTIN   DD    DSN=GR.F2404.SORTLANC,DISP=SHR                         00001001
+//SORTOUT  DD    SYSOUT=*                                               00001101
+//SYSIN    DD    *                                                      00001201
+ SORT FIELDS=(1,10,CH,A)                                                00002003
+ OUTREC FIELDS=(1,10,ZD,TO=PD,LENGHT=6)                                 00003005

@@ -1,0 +1,28 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00000100
+//*--------------------------------------------------------------       00000200
+//*                                                                     00000300
+//*========== RELATORIOS - HEADER - TRAILER                             00000400
+//* DEFINIR A ENTRADA DE DADOS PARA O RELATORIO INREC                   00000501
+//* CLASSIFICAR USANDO SORT E CHAVE(16,4,CH,A)                          00000601
+//* USANDO A SAIDA OUTFIL FNAMES                                        00000701
+//* LINES 10 LINHAS NA SAIDA                                            00000801
+//*CABECALHO HEADER1=(20:'RELATORIO DE DADOS ',50:'DATA ',DATE=(DM4/)), 00000901
+//* OUTREC SAIDA DE COLUNAS                                             00001001
+//* (2/) SIGNIFICA QUE PULA LINHAS NO CASO DUAS, OU TRES OU MAIS        00001101
+//* TRAN=LTOU COLOCA EM MAIUSCULO O QUE TIVER MINUSCULO                 00001201
+//* EDIT=(TTTTTTTT) CONSERVA OS ZEROS MOSTRA MASCARA COM ZERO           00001301
+//* O  (IIIIIII)ESCONDE OS ZEROS                                        00001401
+//*                                                                     00001501
+//*                                                                     00001601
+//*--------------------------------------------------------------       00001700
+//STEP1    EXEC  PGM=SORT                                               00001800
+//SYSOUT   DD    SYSOUT=*                                               00001900
+//SORTIN   DD    DSN=GR.F2404.SORTBASE,DISP=SHR                         00002001
+//SORTOUT  DD    SYSOUT=*                                               00002100
+//SYSIN    DD    *                                                      00002200
+  INREC FIELDS=(1,37,TRAN=LTOU,30X)                                     00002301
+  SORT FIELDS=(16,04,CH,A)                                              00002401
+  OUTFIL FNAMES=SORTOUT,LINES=10,                                       00002501
+  HEADER1=(20:'RELATORIO DE DADOS ',50:DATE=(DM4/),4/),                 00003001
+  OUTREC=(1,67),                                                        00004001
+  TRAILER1=(2/,16:'MEDIA TOTAL ',AVG=(30,8,ZD,EDIT=(TTTTTTTT)))         00005001

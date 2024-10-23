@@ -1,0 +1,19 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00000100
+//*--------------------------------------------------------------       00000203
+//*                                                                     00000300
+//* ALTERANDO DADOS COM IF                                              00000401
+//* TROCAR AS PALAVRAS POR SINAL OU OUTRA COISA, NA ENTRADA             00000501
+//* USANDO INREC, ALTERACOES DE ENTRADA SAO FEITAS NO INREC             00000601
+//* NO OUTREC E SAIDA                                                   00000701
+//* EQ EQUAL / GT GREATER / LESS / GTE GREATER OR EQUAL                 00000801
+//* LTE LESS OR EQUAL. TROCOU OS "C" POR "+" E O "D" TROCOU POR -       00000903
+//* DA PRA TROCAR AS PALAVRAS COMPARANDO                                00001004
+//*--------------------------------------------------------------       00001103
+//STEP1    EXEC  PGM=SORT                                               00001200
+//SYSOUT   DD    SYSOUT=*                                               00001300
+//SORTIN   DD    DSN=GR.F2404.SORTLANC,DISP=SHR                         00001402
+//SORTOUT  DD    SYSOUT=*                                               00001500
+//SYSIN    DD    *                                                      00001600
+  INREC IFTHEN=(WHEN=(39,1,CH,EQ,C'C'),OVERLAY=(39:C'+')),              00001703
+        IFTHEN=(WHEN=(39,1,CH,EQ,C'D'),OVERLAY=(39:C'-'))               00001803
+ SORT FIELDS=COPY                                                       00001900

@@ -1,0 +1,10 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00000100
+//STEP1    EXEC  PGM=SORT                                               00001000
+//SYSOUT   DD    SYSOUT=*                                               00001100
+//SORTIN   DD    DSN=GR.F2404.ARQENT,DISP=SHR                           00001200
+//SORTOUT  DD    SYSOUT=*                                               00001300
+//SYSIN    DD    *                                                      00001400
+ SORT FIELDS=(51,05,CH,A)                                               00001601
+ SUM FIELDS=(66,06,ZD)                                                  00001702
+  INCLUDE COND=(51,01,CH,EQ,C'COBOL')                                   00001802
+  OUTREC FIELDS=(C'SOMA TOTAL ',66,06)                                  00001903

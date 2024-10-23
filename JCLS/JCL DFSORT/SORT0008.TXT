@@ -1,0 +1,13 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00000100
+//*--------------------------------------------------------             00000200
+//*                                                                     00000300
+//*===FORMATAR OS REGISTROS NA ENTRADA USANDO COMANDO INREC             00001000
+//* AULA 10  FORMATANDO REGISTROS                                       00001100
+//*--------------------------------------------------------             00002000
+//STEP1    EXEC  PGM=SORT                                               00020000
+//SYSOUT   DD    SYSOUT=*                                               00030000
+//SORTIN   DD    DSN=GR.F2404.SORTBASE,DISP=SHR                         00040000
+//SORTOUT  DD    SYSOUT=*                                               00050000
+//SYSIN    DD    *                                                      00060000
+ INREC FIELDS=(1,19)                                                    00061001
+ SORT FIELDS=(16,4,CH,A)                                                00070000

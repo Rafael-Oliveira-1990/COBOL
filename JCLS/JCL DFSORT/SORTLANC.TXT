@@ -1,0 +1,12 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00010000
+//CRIAR    EXEC PGM=ICEGENER                                            00020000
+//SYSPRINT DD   SYSOUT=*                                                00030000
+//SYSUT1   DD  *                                                        00040000
+1234000010EMILIA SILVA        10000000C                                 00050000
+2345000060IRENIO DE OLIVEIRA  05000000D
+1234000008DENISE NASCIMENTO   00235600C
+2345000045KETLIN NASCIMENTO   80000000C
+1234000006RAFAEL OLIVEIRA     00650000D
+//SYSUT2   DD DSN=GR.F2404.SORTLANC,DISP=(NEW,CATLG,DELETE),            00120000
+//         SPACE=(TRK,(1,1),RLSE),                                      00130000
+//         DCB=(LRECL=39,RECFM=FB)                                      00140000

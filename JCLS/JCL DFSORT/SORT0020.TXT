@@ -1,0 +1,30 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00000101
+//*--------------------------------------------------------------       00000201
+//*                                                                     00000301
+//*========== RELATORIOS -COM DUAS QUEBRAS                              00000401
+//*                                                                     00000501
+//* AS QUEBRAS SAO AS TOTALIZACOES POR PAGINA E CLOCAR COLUNAS          00000601
+//***************AS QUEBRAS POR PAGINAS PRIMEIRO  CABECALHO:            00000801
+//* HEADER2=(2/,10:'LANCAMENTOS",40:'PAGINA,PAGE,2/,                    00000901
+//***************SEGUNDO  CABECALHOS :                                  00001101
+//*  1: ESTADO',16:'REGIAO',20:'POPULACAO',30:'RENDAPER'),              00001201
+//* TRAILER 1 O TOLALIZACAO MEDIA TOTAL                                 00001301
+//* TRAILER DOIS FAZ A IMPRESSAO DA MEDIA PARCIAL POR PEDACO            00001401
+//*   NA QUEBRA DA PAGINA                                               00001501
+//*  INCLUDE=(16,4EQ,C'SUL ') FEZ A SEPARACAO DA REGIAO                 00001602
+//*--------------------------------------------------------------       00002101
+//STEP1    EXEC  PGM=SORT                                               00002201
+//SYSOUT   DD    SYSOUT=*                                               00002301
+//SORTIN   DD    DSN=GR.F2404.SORTBASE,DISP=SHR                         00002401
+//SORTOUT  DD    SYSOUT=*                                               00002501
+//SYSIN    DD    *                                                      00002601
+  INREC FIELDS=(1,37,TRAN=LTOU,30X)                                     00002701
+  SORT FIELDS=(01,15,CH,A)                                              00002802
+  OUTFIL FNAMES=SORTOUT,LINES=20,                                       00002902
+  HEADER1=(20:'RELATORIO DE DADOS ',50:DATE=(DM4/),4/),                 00003002
+  HEADER2=(2/,10:'LANCAMENTOS',40:'PAGINA',PAGE,4/,                     00003101
+          1:'ESTADO',16:'REG',20:'POPULACAO',30:'RPCAP',2/),            00003204
+  OUTREC=(1,67),                                                        00003301
+  TRAILER1=(2/,16:'SOMA  TOTAL ',TOT=(30,8,ZD,EDIT=(TTTTTTTT))),        00004002
+  TRAILER2=(2/,16:'SOMA        ',TOT=(30,8,ZD,EDIT=(TTTTTTTT))),        00005002
+  INCLUDE=(16,4,CH,EQ,C'SUL ')                                          00006002

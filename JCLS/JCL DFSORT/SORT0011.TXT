@@ -1,0 +1,17 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00000101
+//*------------------------------------------------------------         00000201
+//*                                                                     00000301
+//* INSERINDO SEQUENCIA NUMERICA NUMERACAO DAS LINHAS                   00000402
+//* USANDO (SEQNUM,4,ZD)                                                00000501
+//* COLOCANDO (START=3,INCR=1) COMECA CONTAR A PARTIR DO TRES           00000602
+//* O INCR E PAARA OS NUMEROS PULAR DE 2 EM DOIS E O START              00000703
+//* COMECAR A CONTAR DO TRES NA CONTAGEM                                00000803
+//* RESTART= TODA VEZ QUE FIZER A CHAVE COMECA A NUMERAR DE NOVO        00000904
+//*------------------------------------------------------------         00001001
+//STEP1    EXEC  PGM=SORT                                               00001101
+//SYSOUT   DD    SYSOUT=*                                               00001201
+//SORTIN   DD    DSN=GR.F2404.SORTBASE,DISP=SHR                         00001305
+//SORTOUT  DD    SYSOUT=*                                               00001401
+//SYSIN    DD    *                                                      00001501
+  INREC FIELDS=(1,37,45:SEQNUM,4,ZD,RESTART=(16,3))                     00001605
+ SORT FIELDS=COPY                                                       00001706

@@ -1,0 +1,17 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00000100
+//*------------------------------------------------------------         00000202
+//*                                                                     00000300
+//* SOBREPONDO COM OVERLAY POSICIONANDO E USANDO INREC OVERLAY          00000400
+//* E COLOCA OS DADOS DA COLUNA QUE DESEJA BOBREPOR                     00000502
+//* USANDO O OVERLAY NAO PRECISA SE PREOCUPAR COM ENTRADA DO            00000602
+//* REGISTRO, USA QUANDO QUER SUBSTITUIR DETERMINADAS SITUACOES         00000702
+//* COLOCANDO ENTRE AS POSICOES DO ARQUIVO                              00000803
+//*                                                                     00000903
+//*------------------------------------------------------------         00001002
+//STEP1    EXEC  PGM=SORT                                               00001100
+//SYSOUT   DD    SYSOUT=*                                               00001200
+//SORTIN   DD    DSN=GR.F2404.SORTLANC,DISP=SHR                         00001300
+//SORTOUT  DD    SYSOUT=*                                               00001400
+//SYSIN    DD    *                                                      00001500
+  INREC OVERLAY=(39:C'-')                                               00001602
+ SORT FIELDS=COPY                                                       00001700

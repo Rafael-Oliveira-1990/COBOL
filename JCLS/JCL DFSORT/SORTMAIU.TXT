@@ -1,0 +1,19 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00000100
+//*--------------------------------------------------------------       00000200
+//*                                                                     00000300
+//*========== MASCARA DE EDICAO E TRANSFORMACAO DE DADOS OUTREC         00000401
+//* TRANFORMAR AS LETRAS DO ARQUIVO QUE ESTIVER MINUSCULA PARA          00000500
+//* MAIUSCULA                                                           00000600
+//* CAPS OFF DESLIGAR MAIUSCULA CAPS ON LIGAR                           00000701
+//* //* OUTREC FIELDS=(1,37,TRAN=LTOU)                                  00000802
+//* INREC FIELDS=(1,37,TRAN=LTOU)                                       00000902
+//*                                                                     00001002
+//*--------------------------------------------------------------       00001100
+//STEP1    EXEC  PGM=SORT                                               00001200
+//SYSOUT   DD    SYSOUT=*                                               00001300
+//SORTIN   DD    DSN=GR.F2404.SORTBASE,DISP=SHR                         00001400
+//SORTOUT  DD    SYSOUT=*                                               00001500
+//SYSIN    DD    *                                                      00001600
+   OUTREC FIELDS=(1,37,TRAN=LTOU)                                       00001702
+ SORT FIELDS=COPY                                                       00001900
+   OUTREC IFTHEN=(WHEN=(1,5,CH,EQ,C'CEARA'),OVERLAY=(1:C'-----'))       00002002

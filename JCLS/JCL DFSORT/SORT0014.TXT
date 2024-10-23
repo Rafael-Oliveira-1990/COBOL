@@ -1,0 +1,16 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00000100
+//*--------------------------------------------------------------       00000200
+//*                                                                     00000300
+//*========== ALTERANDO DADOS COM CHANGE - OUTREC ===========           00000400
+//* USANDO O CHANGE PARA TROCAR PROCURANDO E TROCNDOEM FORMA            00000500
+//* DE CADEIA MUDA NA POSICAO                                           00000600
+//*                                                                     00000801
+//*--------------------------------------------------------------       00001600
+//STEP1    EXEC  PGM=SORT                                               00001700
+//SYSOUT   DD    SYSOUT=*                                               00001800
+//SORTIN   DD    DSN=GR.F2404.SORTLANC,DISP=SHR                         00001900
+//SORTOUT  DD    SYSOUT=*                                               00002000
+//SYSIN    DD    *                                                      00002100
+ SORT FIELDS=COPY                                                       00002200
+  OUTREC FIELDS=(1,38,39,1,CHANGE=(1,C'C',C'+',C'D',C'-',C'T',C'X'),    00002300
+         NOMATCH=(39,1))                                                00002400

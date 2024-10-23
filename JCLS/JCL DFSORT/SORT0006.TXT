@@ -1,0 +1,16 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00000100
+//*------------------------------------------------                     00000204
+//*====DETERMINANDO INICIO E FIM - SKIP E STOP====                      00000304
+//*====USANDO CHAVE PARA CLASSIFICAR====                                00000404
+//*------------------------------------------------                     00000504
+//STEP1    EXEC  PGM=SORT                                               00000600
+//SYSOUT   DD    SYSOUT=*                                               00000700
+//SORTIN   DD    *                                                      00000801
+0001JOAO PETRUCCI  15000                                                00000904
+0002PAULO TORRES   25000                                                00001004
+0003JOSE DE SOUZA  10000                                                00001102
+0004LUCAS JONES    20000                                                00001202
+0005PAULA LIMA     35000                                                00001302
+//SORTOUT  DD    SYSOUT=*                                               00001400
+//SYSIN    DD    *                                                      00001500
+ SORT FIELDS=(1,04,CH,A),SKIPREC=1,STOPAFT=3                            00002003

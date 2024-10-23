@@ -1,0 +1,25 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00000101
+//*--------------------------------------------------------------       00000201
+//*                                                                     00000301
+//*========== REFEORMATANDO REGISTROS - OUTREC =============            00000401
+//* O COMANDO OUTREC PERMITE VOCE REFORMATAR INPUT, ANTES DELES         00000501
+//* IREM PARA O DATA SET DE SAIDA , ISTO E, DEFINIR QUAIS PARTE         00000601
+//* DO REGISTRO DE ENTRADA SERAO INCLUIDOS NO REGISTRO REFORMATADO      00000701
+//* DE SAIDA. O REGISTRO REFORMATADO DE SAIDA CONSISTIRA APENAS         00000801
+//* DAQUELES CAMPOS, NA ORDEM E NO ALINHAMNETO EM QUE FORAM ESPECIFI    00000901
+//* CADOS                                                               00001001
+//* SINTAXE :                                                           00001101
+//* OUTREC FILDS=(P1,T1,P2,T2...)                                       00001201
+//* P1 = POSICAO DO DADO                                                00001301
+//* T1 = COMPRIMENTO DO DADO                                            00001401
+//*                                                                     00001501
+//*--------------------------------------------------------------       00001601
+//STEP1    EXEC  PGM=SORT                                               00001701
+//SYSOUT   DD    SYSOUT=*                                               00001801
+//SORTIN   DD    DSN=GR.F2404.SORTLANC,DISP=SHR                         00001901
+//SORTOUT  DD    SYSOUT=*                                               00002001
+//SYSIN    DD    *                                                      00002101
+ SORT FIELDS=COPY                                                       00003001
+  OUTREC IFTHEN=(WHEN=(39,1,CH,EQ,C'C'),OVERLAY=(39:C'+')),             00005003
+         IFTHEN=(WHEN=(39,1,CH,EQ,C'D'),OVERLAY=(39:C'-')),             00006005
+         IFTHEN=(WHEN=NONE,OVERLAY=(39:C'?'))                           00007005

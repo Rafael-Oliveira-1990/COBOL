@@ -1,0 +1,22 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00000100
+//*--------------------------------------------------------------       00000200
+//*                                                                     00000300
+//*========== CONTRUINDO SAIDA DE DADOS - OUTFIL-BUILD                  00000400
+//*                                                                     00000500
+//* INCLUIR SEQUENCIA NUMERICA DE REGISTRO USANDO O BUILD               00000600
+//* COMO SE FOSSE UMA NUMERACAO DE COLUNAS                              00000700
+//*                                                                     00001400
+//*--------------------------------------------------------------       00001500
+//STEP1    EXEC  PGM=SORT                                               00001600
+//SYSOUT   DD    SYSOUT=*                                               00001700
+//SORTIN   DD    DSN=GR.F2404.SORTLANC,DISP=SHR                         00001800
+//SORTOUT  DD    SYSOUT=*                                               00001900
+//CREDITO  DD    SYSOUT=*                                               00002000
+//DEBITO   DD    SYSOUT=*                                               00002100
+//*EXCESSAO DD    SYSOUT=*                                              00002200
+//SYSIN    DD    *                                                      00002300
+ SORT FIELDS=COPY                                                       00002400
+  OUTFIL FNAMES=CREDITO,INCLUDE=(39,1,CH,EQ,C'C'),                      00002500
+         BUILD=(1,39,4X,SEQNUM,4,ZD)                                    00002600
+  OUTFIL FNAMES=DEBITO,INCLUDE=(39,1,CH,EQ,C'D')                        00002700
+  OUTFIL FNAMES=SORTOUT,SAVE                                            00002800

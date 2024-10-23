@@ -1,0 +1,7 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00000100
+//STEP1    EXEC  PGM=SORT                                               00000500
+//SYSOUT   DD    SYSOUT=*                                               00000600
+//SORTIN   DD    DSN=GR.F2404.ARQENT,DISP=SHR                           00000702
+//SORTOUT  DD    DSN=GR.F2404.ARQSAI1,DISP=SHR                          00000813
+//SYSIN    DD    *                                                      00001000
+ SORT FIELDS=(21,04,CH,A)                                               00002012

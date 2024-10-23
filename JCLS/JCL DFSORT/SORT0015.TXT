@@ -1,0 +1,16 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00000100
+//*--------------------------------------------------------------       00000200
+//*                                                                     00000300
+//*========== MASCARA DE EDICAO E TRANSFORMACAO DE DADOS OUTREC =====   00000400
+//* O EDIT=(IIIII) E A MASCARA UC COLOCA A LINHA EM MAIUSCULA           00000502
+//*--------------------------------------------------------------       00000900
+//STEP1    EXEC  PGM=SORT                                               00001000
+//SYSOUT   DD    SYSOUT=*                                               00001100
+//SORTIN   DD    *                                                      00001201
+0001JOAO PETRUCI   001000                                               00001302
+0003MARIA MARA     003000                                               00001402
+0002JONAS SOUZA    002000                                               00001502
+//SORTOUT  DD    SYSOUT=*                                               00001600
+//SYSIN    DD    *                                                      00001700
+ SORT FIELDS=COPY                                                       00001800
+   OUTREC FIELDS=(1,19,20,6,ZD,EDIT=(IIIIII))                           00001902

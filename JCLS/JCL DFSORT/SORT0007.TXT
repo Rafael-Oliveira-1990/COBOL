@@ -1,0 +1,14 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00000100
+//*--------------------------------------------------------             00000202
+//*                                                                     00000302
+//*    AS 4 PRIMEIRAS POSICOES DA CHAVE COMECA NA POSICAO 5             00000402
+//*    ESSAS 4 PRIMEIROS NUMEROS E PARA A SORT                          00000502
+//*    ARQUIVOS DE FORMATO VARIAVEL                                     00000602
+//*                                                                     00000700
+//*--------------------------------------------------------             00000802
+//STEP1    EXEC  PGM=SORT                                               00000900
+//SYSOUT   DD    SYSOUT=*                                               00001000
+//SORTIN   DD    DSN=GR.F2404.ARQUIVOV,DISP=SHR                         00001100
+//SORTOUT  DD    SYSOUT=*                                               00001400
+//SYSIN    DD    *                                                      00001500
+ SORT FIELDS=(5,04,CH,A)                                                00001601

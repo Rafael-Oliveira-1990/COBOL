@@ -1,0 +1,27 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00000100
+//*--------------------------------------------------------------       00000200
+//*                                                                     00000300
+//*========== CRIANDO CONDICOES DE SAIDA DE DADOS =====                 00000400
+//* FILTRANDO A SAIDA DE DADOS - INCLUDE-OMIT-OUTFIL                    00000500
+//* LER ARQUIVO DE ENTRADA COM OS DADOSE LER SOMENTE UM DADO DO         00000600
+//* ARQUIVO, OU O CONTRARIO, LER TODOS OS OS DADOS E OMITIR UM DADO     00000700
+//* O OMIT SO DEVOLVE OS DIFERENTES CONTRATIO DO INCLUDE                00000900
+//* O OUTFIL TRABALHA COM OS DOIS: COM O INCLUDE E O OMIT CRIAR         00001001
+//* ARQUIVOS                                                            00001101
+//* OMIT    COND=(39,01,CH,EQ,C'C')                                     00001201
+//* INCLUDE COND=(39,01,CH,EQ,C'C')                                     00001301
+//* OUTREC FIELDS=(39,1,2X,1,38)                                        00001401
+//*                                                                     00001501
+//*--------------------------------------------------------------       00001600
+//STEP1    EXEC  PGM=SORT                                               00001700
+//SYSOUT   DD    SYSOUT=*                                               00001800
+//SORTIN   DD    DSN=GR.F2404.SORTLANC,DISP=SHR                         00001900
+//SORTOUT  DD    SYSOUT=*                                               00002001
+//CREDITO  DD    SYSOUT=*                                               00002101
+//DEBITO   DD    SYSOUT=*                                               00002201
+//*EXCESSAO DD   SYSOUT=*                                               00002303
+//SYSIN    DD    *                                                      00002401
+ SORT FIELDS=COPY                                                       00002501
+  OUTFIL FNAMES=CREDITO,INCLUDE=(39,1,CH,EQ,C'C')                       00002601
+  OUTFIL FNAMES=DEBITO,INCLUDE=(39,1,CH,EQ,C'D')                        00002701
+  OUTFIL FNAMES=SORTOUT,SAVE                                            00002802

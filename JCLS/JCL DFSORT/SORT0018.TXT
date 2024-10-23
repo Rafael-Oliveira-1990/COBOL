@@ -1,0 +1,18 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00000100
+//*--------------------------------------------------------------       00000200
+//*                                                                     00000300
+//*========== MESCLANDO ARQUIVOS -  MERGE                               00000401
+//*                                                                     00000500
+//*  FAZER COM QUE DOIS OU MAIS ARQUIVOS VIREM UM USANDO MERGE          00000600
+//*  E INTERCALANDO A ORDEM DAS COLUNAS                                 00000702
+//*  SUM FIELDS=NONE RETIRA OS ARQUIVOS REPETIDOS                       00000802
+//*  MESCLA DE DOIS ARQUIVOS BASEADO NUMA CHAVE                         00000902
+//*--------------------------------------------------------------       00001000
+//STEP1    EXEC  PGM=SORT                                               00001100
+//SYSOUT   DD    SYSOUT=*                                               00001200
+//SORTIN01 DD    DSN=GR.F2404.BASE1,DISP=SHR                            00001302
+//SORTIN02 DD    DSN=GR.F2404.BASE2,DISP=SHR                            00001402
+//SORTOUT  DD    SYSOUT=*                                               00001502
+//SYSIN    DD    *                                                      00001700
+   MERGE FIELDS=(01,05,CH,A)                                            00001802
+   SUM FIELDS=NONE                                                      00001902

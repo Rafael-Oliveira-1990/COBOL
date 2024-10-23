@@ -1,0 +1,10 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00000201
+//*----------------------------------------------------                 00000302
+//*=======CLASSIFICAR POR CHAVE(AGENCIA + CONTA)=======                 00001001
+//*----------------------------------------------------                 00002002
+//STEP1    EXEC  PGM=SORT                                               00020000
+//SYSOUT   DD    SYSOUT=*                                               00030000
+//SORTIN   DD    DSN=GR.F2404.SORTLANC,DISP=SHR                         00040000
+//SORTOUT  DD    SYSOUT=*                                               00050000
+//SYSIN    DD    *                                                      00060000
+ SORT FIELDS=(1,10,CH,A)                                                00070000

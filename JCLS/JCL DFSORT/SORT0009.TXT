@@ -1,0 +1,16 @@
+//F2404XXX JOB '',CLASS=C,MSGCLASS=X,NOTIFY=F2404,TIME=(0,01)           00000100
+//*--------------------------------------------------------             00000200
+//*                                                                     00000300
+//*===INSERINDO ESPACOS E CARACTERE USANDO INREC                        00000403
+//* FAZENDO RECORTES POR PARTES DO ARQUIVVO PELA CHAVE                  00000503
+//* O X E PARA COLOCAR ESPACO NO ARQUIVO NA SORTOUT                     00000604
+//* INSERIU LETRA E CARACTER(C'..:")                                    00000708
+//*                                                                     00000808
+//*--------------------------------------------------------             00000900
+//STEP1    EXEC  PGM=SORT                                               00001000
+//SYSOUT   DD    SYSOUT=*                                               00001100
+//SORTIN   DD    DSN=GR.F2404.SORTLANC,DISP=SHR                         00001202
+//SORTOUT  DD    SYSOUT=*                                               00001300
+//SYSIN    DD    *                                                      00002000
+  INREC FIELDS=(39,1,2X,C'..:',1,4,X,5,6,X,11,20,X,31,8)                00003008
+ SORT FIELDS=COPY                                                       00004001
