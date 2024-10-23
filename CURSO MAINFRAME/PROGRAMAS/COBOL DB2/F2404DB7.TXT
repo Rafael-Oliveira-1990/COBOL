@@ -1,0 +1,145 @@
+      *================================================================*
+       IDENTIFICATION                  DIVISION.
+       PROGRAM-ID                      F2404DB7.
+      *================================================================*
+       ENVIRONMENT                     DIVISION.
+      *================================================================*
+       DATA                            DIVISION.
+      *================================================================*
+      *
+      *  EXCLUSAO DE UM REGISTRO NA TABELA
+      *
+       WORKING-STORAGE                 SECTION.
+
+           EXEC SQL
+            INCLUDE  SQLCA
+           END-EXEC.
+
+           EXEC SQL
+            INCLUDE BOOKFUNC
+           END-EXEC.
+
+       COPY BOOKDB2.
+
+       01 WRK-SQLCODE                  PIC -999            VALUE ZEROS.
+       01 WRK-NULO                     PIC S9(004) COMP    VALUE ZEROS.
+
+
+       01 WRK-DB2-FUNC.
+          05 WRK-DB2-IDFUNC            PIC 9(009)          VALUE ZEROS.
+          05 WRK-DB2-NOMEFUNC          PIC X(030)          VALUE SPACES.
+          05 WRK-DB2-DEPTOFUNC         PIC X(003)          VALUE SPACES.
+          05 WRK-DB2-SALFUNC           PIC 9(003)V99       VALUE ZEROS.
+          05 WRK-DB2-FILHOSFUNC        PIC 9(009)          VALUE ZEROS.
+          05 WRK-DB2-ADMISFUNC         PIC X(010)          VALUE SPACES.
+
+      *================================================================*
+       PROCEDURE                       DIVISION.
+      *================================================================*
+
+       0000-PRINCIPAL                  SECTION.
+
+           PERFORM 0100-INICIALIZAR.
+
+           PERFORM 0200-PROCESSAR.
+
+           PERFORM 0300-FINALIZAR.
+
+           GOBACK.
+
+       0000-PRINCIPAL-FIM.             EXIT.
+
+      *----------------------------------------------------------------*
+       0100-INICIALIZAR                SECTION.
+      *----------------------------------------------------------------*
+
+           ACCEPT WRK-DB2-FUNC.
+
+           MOVE WRK-DB2-IDFUNC         TO DB2-IDFUNC.
+           MOVE WRK-DB2-NOMEFUNC       TO DB2-NOMEFUNC.
+           MOVE WRK-DB2-DEPTOFUNC      TO DB2-DEPTOFUNC.
+           MOVE WRK-DB2-SALFUNC        TO DB2-SALFUNC.
+           MOVE WRK-DB2-FILHOSFUNC     TO DB2-FILHOSFUNC.
+           MOVE WRK-DB2-ADMISFUNC      TO DB2-ADMISFUNC.
+
+       0100-INICIALIZAR-FIM.           EXIT.
+
+      *----------------------------------------------------------------*
+       0200-PROCESSAR                  SECTION.
+      *----------------------------------------------------------------*
+
+           EXEC SQL
+              INSERT
+                  INTO F2404.FUNC
+                  (IDFUNC
+                  ,NOMEFUNC
+                  ,DEPTOFUNC
+                  ,SALFUNC
+                  ,FILHOSFUNC
+                  ,ADMISFUNC)
+               VALUES(:DB2-IDFUNC
+                  ,:DB2-NOMEFUNC
+                  ,:DB2-DEPTOFUNC
+                  ,:DB2-SALFUNC
+                  ,:DB2-FILHOSFUNC
+                  ,:DB2-ADMISFUNC)
+           END-EXEC.
+
+           MOVE SQLCODE TO WRK-SQLCODE
+
+           IF (SQLCODE NOT  EQUAL ZEROS AND +180 AND +803 AND +100) OR
+              (SQLWARN0 EQUAL 'W')
+               MOVE SQLCODE            TO WRK-SQLCODE
+               MOVE "F404.FUNC"        TO WRK-TABELA-DB2
+               MOVE "F2404DB7"         TO WRK-PROGRAMA-DB2
+               MOVE "0200"             TO WRK-SECAO-DB2
+               MOVE "ERRO GRAVAR"      TO WRK-MENSAGEM-DB2
+               PERFORM 9998-TRATA-ERROS-DB2
+           END-IF.
+
+           EVALUATE SQLCODE
+
+           WHEN ZEROS
+               DISPLAY "REGISTRO INSERIDO"
+
+           WHEN 180
+               DISPLAY "DATA ERRADA"
+
+           WHEN 803
+               DISPLAY "REGISTRO JA EXISTE"
+
+           WHEN 100
+               DISPLAY "CHAVE NAO EXISTE"
+           END-EVALUATE.
+
+
+       0200-PROCESSAR-FIM.             EXIT.
+
+      *----------------------------------------------------------------*
+       0300-FINALIZAR                  SECTION.
+      *----------------------------------------------------------------*
+
+           DISPLAY "FIM DE PROGRAMA".
+
+       0300-FINALIZAR-FIM.             EXIT.
+
+      *----------------------------------------------------------------*
+       9998-TRATA-ERROS-DB2            SECTION.
+      *----------------------------------------------------------------*
+
+           CALL WRK-PROGRAMA-LOGDB2  USING WRK-DADOS-DB2.
+
+           GOBACK.
+
+       9999-99-FIM.                    EXIT.
+
+      *----------------------------------------------------------------*
+
+
+
+
+
+
+
+
+
