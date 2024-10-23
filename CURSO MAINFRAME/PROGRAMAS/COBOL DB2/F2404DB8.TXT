@@ -1,0 +1,108 @@
+      *================================================================*
+       IDENTIFICATION                  DIVISION.
+       PROGRAM-ID                      F2404DB8.
+      *================================================================*
+       ENVIRONMENT                     DIVISION.
+      *================================================================*
+       DATA                            DIVISION.
+      *================================================================*
+      *
+      *  EXCLUSAO DE UM REGISTRO NA TABELA
+      *
+       WORKING-STORAGE                 SECTION.
+
+           EXEC SQL
+            INCLUDE  SQLCA
+           END-EXEC.
+
+           EXEC SQL
+            INCLUDE BOOKFUNC
+           END-EXEC.
+
+       COPY BOOKDB2.
+
+       01 WRK-ID                       PIC 9(09)           VALUE ZEROS.
+       01 WRK-SQLCODE                  PIC -999            VALUE ZEROS.
+       01 WRK-NULO                     PIC S9(004) COMP    VALUE ZEROS.
+
+      *================================================================*
+       PROCEDURE                       DIVISION.
+      *================================================================*
+
+       0000-PRINCIPAL                  SECTION.
+           PERFORM 0100-INICIALIZAR.
+           PERFORM 0200-PROCESSAR.
+           PERFORM 0300-FINALIZAR.
+           GOBACK.
+       0000-PRINCIPAL-FIM.             EXIT.
+
+      *----------------------------------------------------------------*
+       0100-INICIALIZAR                SECTION.
+      *----------------------------------------------------------------*
+
+           ACCEPT WRK-ID.
+           MOVE WRK-ID TO DB2-IDFUNC.
+
+
+       0100-INICIALIZAR-FIM.           EXIT.
+
+      *----------------------------------------------------------------*
+       0200-PROCESSAR                  SECTION.
+      *----------------------------------------------------------------*
+
+           EXEC SQL
+              DELETE FROM F2404.FUNC
+              WHERE IDFUNC =:DB2-IDFUNC
+           END-EXEC.
+
+           MOVE SQLCODE TO WRK-SQLCODE
+           DISPLAY SQLCODE.
+
+           IF (SQLCODE NOT  EQUAL ZEROS AND +100) OR
+              (SQLWARN0 EQUAL 'W')
+               MOVE SQLCODE            TO WRK-SQLCODE
+               MOVE "F404.FUNC"        TO WRK-TABELA-DB2
+               MOVE "F2404DB8"         TO WRK-PROGRAMA-DB2
+               MOVE "0200"             TO WRK-SECAO-DB2
+               MOVE "ERRO GRAVAR"      TO WRK-MENSAGEM-DB2
+               PERFORM 9998-TRATA-ERROS-DB2
+           END-IF.
+
+           IF SQLCODE EQUAL ZEROS
+               DISPLAY 'EXCLUIDO'
+           END-IF.
+
+           IF SQLCODE EQUAL 100
+               DISPLAY "REGISTRO NAO EXISTE"
+           END-IF.
+
+       0200-PROCESSAR-FIM.             EXIT.
+
+      *----------------------------------------------------------------*
+       0300-FINALIZAR                  SECTION.
+      *----------------------------------------------------------------*
+
+           DISPLAY "FIM DE PROGRAMA".
+
+       0300-FINALIZAR-FIM.             EXIT.
+
+      *----------------------------------------------------------------*
+       9998-TRATA-ERROS-DB2            SECTION.
+      *----------------------------------------------------------------*
+
+           CALL WRK-PROGRAMA-LOGDB2  USING WRK-DADOS-DB2.
+
+           GOBACK.
+
+       9999-99-FIM.                    EXIT.
+
+      *----------------------------------------------------------------*
+
+
+
+
+
+
+
+
+
