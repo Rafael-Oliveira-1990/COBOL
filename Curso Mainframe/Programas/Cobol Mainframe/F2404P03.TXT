@@ -1,0 +1,241 @@
+      *================================================================*
+       IDENTIFICATION                  DIVISION.
+       PROGRAM-ID.                     F2404P03.
+      *================================================================*
+      *   PROGRAMA.....: F2404P03
+      *   PROGRAMADOR..: RAFAEL DE OLIVEIRA
+      *   ANALISTA.....: IVAN SANCHES
+      *   DATA.........: 20/08/2024
+      *   CONSULTORIA..: FOURSYS
+      *----------------------------------------------------------------*
+      *   OBJETIVO.....: DESENVOLVER UM PROGRAMA QUE FACA LEITURA
+      *                  DE TODOS OS REGISTROS DO ARQUIVO ASSINA,
+      *                  E MOSTRAR ESTATISTICA E MENSAGEM DE ERROS
+      *----------------------------------------------------------------*
+      *-------------  ESPECIFICACOES DO PROGRAMA ----------------------*
+      *   ARQUIVO......:
+      *
+      *   DDNAME.......:       TIPO                 BOOK
+      *   ASSINA               INPUT               BKASSINA
+      *
+      *----------------------------------------------------------------*
+      *   INC'S........:
+      *   BOOKMSG - VARIAVEIS PARA MENSAGEM DE ERRO
+      *   BOOKLOG - AREA FORMATACAO DE ERROS -> GRAVALOG
+      *
+      *----------------------------------------------------------------*
+      *   MODULOS......:                            BOOK....:
+      *
+      *   GRAVALOG                                  BOOKLOG
+      *----------------------------------------------------------------*
+      *----------------- ALTERACOES DO PROGRAMA------------------------*
+      *   PROGRAMADOR..:
+      *   ANALISTA.....:
+      *   CONSULTORIA..:
+      *   DATA.........:
+      *   OBJETIVO.....:
+      *----------------------------------------------------------------*
+
+      *================================================================*
+       ENVIRONMENT                     DIVISION.
+      *================================================================*
+
+      *----------------------------------------------------------------*
+       CONFIGURATION                   SECTION.
+      *----------------------------------------------------------------*
+       SPECIAL-NAMES.
+           DECIMAL-POINT IS COMMA.
+      *----------------------------------------------------------------*
+
+      *----------------------------------------------------------------*
+       INPUT-OUTPUT                    SECTION.
+      *----------------------------------------------------------------*
+       FILE-CONTROL.
+           SELECT ASSINA ASSIGN TO ASSINA
+           FILE STATUS IS FS-ASSINA.
+      *----------------------------------------------------------------*
+
+      *================================================================*
+       DATA                            DIVISION.
+      *================================================================*
+
+      *----------------------------------------------------------------*
+       FILE                            SECTION.
+      *----------------------------------------------------------------*
+      * INPUT - DADOS DO ARQUIVO DE ENTRADA (ASSINA)  LRECL = 066
+      *----------------------------------------------------------------*
+
+       FD  ASSINA
+           RECORDING MODE IS F.
+
+      *----------------------------------------------------------------*
+      *01  FILLER                      PIC X(050)          VALUE
+      *    '----- VARIAVEL DE RESGISTRO DE DADOS-----'.
+      *----------------------------------------------------------------*
+
+       COPY BKASSINA.
+
+      *----------------------------------------------------------------*
+       WORKING-STORAGE                 SECTION.
+      *----------------------------------------------------------------*
+
+      *----------------------------------------------------------------*
+       01  FILLER                      PIC X(050)          VALUE
+           '----- INICIO DA WORKING -----'.
+      *----------------------------------------------------------------*
+
+      *----------------------------------------------------------------*
+       01  FILLER                      PIC X(050)          VALUE
+           '----- VARIAVEL DE FILE STATUTS -----'.
+      *----------------------------------------------------------------*
+
+       01  FS-ASSINA                   PIC 9(002)          VALUE ZEROS.
+
+      *----------------------------------------------------------------*
+       01  FILLER                      PIC X(050)          VALUE
+           '----- VARIAVEL  ACUMULADORA ----'.
+      *----------------------------------------------------------------*
+
+       01  ACU-LIDOS                   PIC 9(002) COMP-3   VALUE ZEROS.
+
+      *----------------------------------------------------------------*
+       01  FILLER                      PIC X(050)          VALUE
+           '----- VARIAVEIS DO BOOK-----'.
+      *----------------------------------------------------------------*
+
+       COPY BOOKLOG.
+
+      *----------------------------------------------------------------*
+       01  FILLER                      PIC X(050)          VALUE
+           '----- MENSAGENS DE ERRO-----'.
+      *----------------------------------------------------------------*
+
+       COPY BOOKMSG.
+
+      *----------------------------------------------------------------*
+       01  FILLER                      PIC X(050)          VALUE
+           '----- FIM DA WORKING -----'.
+      *----------------------------------------------------------------*
+
+      *================================================================*
+       PROCEDURE                       DIVISION.
+      *================================================================*
+
+      *----------------------------------------------------------------*
+       0000-PRINCIPAL                  SECTION.
+      *----------------------------------------------------------------*
+
+           PERFORM 0100-INICIALIZAR.
+
+           PERFORM 0130-TESTAR-VAZIO.
+
+           PERFORM 0200-PROCESSAR UNTIL FS-ASSINA NOT EQUAL 00.
+
+           PERFORM 0300-FINALIZAR.
+
+       0000-PRINCIPAL-FIM.              EXIT.
+
+      *----------------------------------------------------------------*
+       0100-INICIALIZAR                 SECTION.
+      *----------------------------------------------------------------*
+
+           OPEN INPUT ASSINA.
+
+           PERFORM 0110-TESTAR-STATUS.
+
+       0100-INICIALIZAR-FIM.           EXIT.
+
+      *----------------------------------------------------------------*
+       0110-TESTAR-STATUS              SECTION.
+      *----------------------------------------------------------------*
+
+           IF FS-ASSINA NOT EQUAL ZEROS
+              MOVE 'F2404P03'          TO WRK-PROGRAMA
+              MOVE 'ASSINA'            TO WRK-ARQUIVO
+              MOVE '0104'              TO WRK-SECAO
+              MOVE WRK-ERRO-ABERTURA   TO WRK-MENSAGEM
+              MOVE FS-ASSINA           TO WRK-STATUS
+              PERFORM 9999-TRATA-ERROS
+           END-IF.
+
+       0110-TESTAR-STATUS-FIM.         EXIT.
+
+      *----------------------------------------------------------------*
+       0120-LER-DADOS                  SECTION.
+      *----------------------------------------------------------------*
+
+            READ ASSINA.
+
+            IF FS-ASSINA NOT EQUAL ZEROS
+                MOVE 'F2404P03'        TO WRK-PROGRAMA
+                MOVE 'ASSINA'          TO WRK-ARQUIVO
+                MOVE '0110'            TO WRK-SECAO
+                MOVE WRK-ERRO-LEITURA  TO WRK-MENSAGEM
+                MOVE FS-ASSINA         TO WRK-STATUS
+                PERFORM 9999-TRATA-ERROS
+            END-IF.
+
+       0120-LER-DADOS-FIM.             EXIT.
+
+      *----------------------------------------------------------------*
+       0130-TESTAR-VAZIO               SECTION.
+      *----------------------------------------------------------------*
+
+           PERFORM 0120-LER-DADOS.
+
+           IF FS-ASSINA EQUAL 10
+              DISPLAY "ARQUIVO VAZIO"
+              PERFORM 0300-FINALIZAR
+           END-IF.
+
+       0130-TESTAR-VAZIO-FIM.          EXIT.
+
+      *----------------------------------------------------------------*
+       0200-PROCESSAR                  SECTION.
+      *----------------------------------------------------------------*
+
+           ADD 1 TO ACU-LIDOS.
+
+           DISPLAY REG-ASSINA.
+
+           PERFORM 0120-LER-DADOS.
+
+       0200-PROCESSAR-FIM.             EXIT.
+
+      *----------------------------------------------------------------*
+       0300-FINALIZAR                  SECTION.
+      *----------------------------------------------------------------*
+
+           IF ACU-LIDOS GREATER ZEROS
+               DISPLAY "=====ESTATISTICA===== "
+               DISPLAY "===================== "
+               DISPLAY "TOTAL DE REGISTROS LIDOS: " ACU-LIDOS
+           END-IF.
+
+
+       0310-FECHAR-ASSINA.
+
+           CLOSE ASSINA.
+
+           IF FS-ASSINA NOT EQUAL ZEROS
+               MOVE 'F2404P03'          TO WRK-PROGRAMA
+               MOVE 'ASSINA'            TO WRK-ARQUIVO
+               MOVE '0310'              TO WRK-SECAO
+               MOVE WRK-ERRO-FECHAMENTO TO WRK-MENSAGEM
+               MOVE FS-ASSINA           TO WRK-STATUS
+               PERFORM 9999-TRATA-ERROS
+           END-IF.
+
+           GOBACK.
+
+       0300-FINALIZAR-FIM.             EXIT.
+
+      *----------------------------------------------------------------*
+       9999-TRATA-ERROS                SECTION.
+      *----------------------------------------------------------------*
+
+           CALL WRK-PROGRAMA-LOGERRO   USING WRK-DADOS.
+
+           GOBACK.
+
+       9999-TRATA-ERROS-FIM.           EXIT.
