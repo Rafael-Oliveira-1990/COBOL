@@ -1,0 +1,33 @@
+07 - LER ARQUIVO ASSINA E MOSTRAR REGISTROS                               
+   - PROGRAMA F240407
+                                                                    
+08 - GRAVACAO DE RESGISTRO NO ARQUIVO VISAM                               
+   - PROGRAMA F240408
+                                                                     
+09 - DELETAR REGISTRO NO ARQUIVO VISAM                                    
+   - PROGRAMA F240409
+                                                                     
+10 - VSAM - REESCREVER O REGISTRO NO ARQIIVO DE DADOS                     
+   - PROGRAMA F240410
+                                                                     
+11 - VSAM - EXEMPLO DE LEITURA SEQUENCIAL DE UM ARQUIVO VSAM              
+   - PROGRAMA F240411
+                                                                     
+12 - VSAM - RECEBE UMA CHAVE DO JCL PELO PARM E LE O ARQUIVO ARQVSAM      
+   - E MOSTRAR REGISTROS                                                 
+   - PROGRAMA F240412
+                                                                     
+13 - VSAM -  RECEBE UMA CHAVE DO JCL PELO PARM E                          
+   - LE O ARQUIVO ARQVSAM A PARTIR DA CHAVE RECEBIDA                      
+   - PROGRAMA F240413
+                                                                     
+14 - ESTE PROGRAMA TEM A FINALIDADE A PARTIR DO RECEBIMENTO DE UMA SEQUEN-
+   - CIA (ACAO + LAYOUT) REALIZAR çãAS OPERACOES DE :                      
+   - (L) LEITURA DE UM REGISTRO, (G)GRAVACAO DE UM REGISTRO, (E)EXCLUSAO   
+   - DE UM REGISTRO E (R)REGRAVACAO DE UM REGISTRO. 
+   - PROGRAMA F240414
+
+   - PROGRAMA DUASCHAV - LEITURA DE UM REGISTRO NO ARQUIVO DE DADOS
+                       - RECEBENDO DUAS CHAVES PELO JCL USANDO PARM.
+
+                        
