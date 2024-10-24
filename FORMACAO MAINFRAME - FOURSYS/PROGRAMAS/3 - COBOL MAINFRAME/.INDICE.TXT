@@ -1,6 +1,9 @@
-01 - TESTE DISPLAY - IMPRIME STRING - PROGRAMA F2404P01.                                      00010001
+
+           - INDICE DA SEQUÊNCIA DOS PROGRAMAS
+
+01 - TESTE DISPLAY - IMPRIME STRING - PROGRAMA F2404P01.                                      
                                                                          
-02 - SOMA DE DOIS NUMEROS DANDO RESULTADO FINAL - F2404P02.                          00020001
+02 - SOMA DE DOIS NUMEROS DANDO RESULTADO FINAL - F2404P02.                          
                                                                          
 03 - LEITURA DE TODOS OS REGISTRO DO ARQUIVO ASSINA, MOSTRAR ESTATISTICA 
    - E MENSAGEM DE ERROS. 
@@ -16,7 +19,7 @@
 06 - BALANCE LINE ENTRE OS ARQUIVOS CLIENTE E LANCAM,  PROGRAMA LE OS   
    - ARQUIVOS CLIENTES E LANCAM E GERAARQUIVO RELSAIDA COM O SALDO      
    - ATUALIZADO.                                                         
-   - PROGRAMA F2404P06                                                                      00063001
+   - PROGRAMA F2404P06                                                                      
 
 
    - PROGBASE - BASE PARA CONSTRUIR O PROGRAMA A PARTIR DO ZERO. 

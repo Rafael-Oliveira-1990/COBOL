@@ -1,3 +1,6 @@
+  
+          - INDICE DA SEQUÊNCIA DOS PROGRAMAS 
+
 07 - LER ARQUIVO ASSINA E MOSTRAR REGISTROS                               
    - PROGRAMA F240407
                                                                     
