@@ -1,0 +1,87 @@
+//F2404E14 JOB 'EXECUT',CLASS=C,MSGCLASS=X,NOTIFY=&SYSUID,TIME=(0,02)
+//*-----------------------------------------------------------------
+//*         1O TESTE - CHAVE VAZIA
+//*-----------------------------------------------------------------
+//STEP001  EXEC PGM=F2404P14
+//STEPLIB  DD DSN=GR.GERAL.LOADLIB,DISP=SHR
+//ARQVSAM  DD DSN=GR.F2404.ARQVSAM,DISP=SHR
+//LOGERROS DD DSN=GR.F2404.LOGERROS,DISP=SHR
+//SYSIN    DD *
+
+001TE$TE$              TESTES@OUTLOOK.COM  PRIME     01990
+/*
+//*-----------------------------------------------------------------
+//*         2O TESTE - CODIGO VAZIO
+//*-----------------------------------------------------------------
+//STEP002  EXEC PGM=F2404P14
+//STEPLIB  DD DSN=GR.GERAL.LOADLIB,DISP=SHR
+//ARQVSAM  DD DSN=*.STEP001.ARQVSAM,DISP=SHR
+//LOGERROS DD DSN=*.STEP001.LOGERROS,DISP=SHR
+//SYSIN    DD *
+L
+   TE$TE$              TESTES@OUTLOOK.COM  PRIME     01990
+/*
+//*-----------------------------------------------------------------
+//*         3O TESTE - GRAVAR COM TESTE DE SIMBOLOS
+//*-----------------------------------------------------------------
+//STEP003  EXEC PGM=F2404P14
+//STEPLIB  DD DSN=GR.GERAL.LOADLIB,DISP=SHR
+//ARQVSAM  DD DSN=*.STEP001.ARQVSAM,DISP=SHR
+//LOGERROS DD DSN=*.STEP001.LOGERROS,DISP=SHR
+//SYSIN    DD *
+G
+042ROSINEIDE%SANTOS  % ROSINE@OUTLOOK.COM  PRIME     01990
+/*
+//*-----------------------------------------------------------------
+//*         4O TESTE - REGRAVAR COM TESTE DE SIMBOLOS
+//*-----------------------------------------------------------------
+//STEP004  EXEC PGM=F2404P14
+//STEPLIB  DD DSN=GR.GERAL.LOADLIB,DISP=SHR
+//ARQVSAM  DD DSN=*.STEP001.ARQVSAM,DISP=SHR
+//LOGERROS DD DSN=*.STEP001.LOGERROS,DISP=SHR
+//SYSIN    DD *
+R
+032ROSICLAIR%SANTOS    ROSCLA@OUTLOOK.COM  PRIME     01990
+/*
+//*-----------------------------------------------------------------
+//*         5O TESTE - VALIDAR REGRAVACAO - LEITURA DE 1 EXISTENTE
+//*-----------------------------------------------------------------
+//STEP005  EXEC PGM=F2404P14
+//STEPLIB  DD DSN=GR.GERAL.LOADLIB,DISP=SHR
+//ARQVSAM  DD DSN=*.STEP001.ARQVSAM,DISP=SHR
+//LOGERROS DD DSN=*.STEP001.LOGERROS,DISP=SHR
+//SYSIN    DD *
+L
+032
+/*
+//*-----------------------------------------------------------------
+=2*         6O TESTE - TESTAR NUMERICO
+//*-----------------------------------------------------------------
+//STEP006  EXEC PGM=F2404P14
+//STEPLIB  DD DSN=GR.GERAL.LOADLIB,DISP=SHR
+//ARQVSAM  DD DSN=*.STEP001.ARQVSAM,DISP=SHR
+//LOGERROS DD DSN=*.STEP001.LOGERROS,DISP=SHR
+//SYSIN    DD *
+G
+033ROSICLAIR%SANTOS    ROSCLA@OUTLOOK.COM  PRIME     0A990
+/*
+//*-----------------------------------------------------------------
+//*         7O TESTE - GRAVAR EM  BRANCO
+//*-----------------------------------------------------------------
+//STEP007  EXEC PGM=F2404P14
+//STEPLIB  DD DSN=GR.GERAL.LOADLIB,DISP=SHR
+//ARQVSAM  DD DSN=*.STEP001.ARQVSAM,DISP=SHR
+//LOGERROS DD DSN=*.STEP001.LOGERROS,DISP=SHR
+//SYSIN    DD *
+G
+045                    ROSCLA@OUTLOOK.COM  PRIME     04990
+/*
+//*-----------------------------------------------------------------
+//*         8O TESTE - SEM ARQUIVO NO DD
+//*-----------------------------------------------------------------
+//STEP008  EXEC PGM=F2404P14
+//STEPLIB  DD DSN=GR.GERAL.LOADLIB,DISP=SHR
+//ARQVSAM2 DD DSN=*.STEP001.ARQVSAM,DISP=SHR
+//LOGERROS DD DSN=*.STEP001.LOGERROS,DISP=SHR
+//SYSIN    DD *
+
