@@ -38,7 +38,7 @@ ALT02 *== OBJETIVO....: ADICINOU SECAO DE ESTATISTICA COM TOTAL DE
 ALT03 *== PROGRAMADOR.: RAFAEL DE OLIVEIRA
 .     *== ANALISTA....: IVANS SANCHES
 .     *== CONSULTORIA.:
-.     *== DATA........: 02/078/2024
+.     *== DATA........: 02/08/2024
 ALT03 *== OBJETIVO....: ADICIONAR ABRIR O PROGRAMA EM MODO OUTPUT
       *-----------------------------------------------------------------
 

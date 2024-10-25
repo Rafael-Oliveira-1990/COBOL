@@ -1,6 +1,6 @@
       *-----------------------------------------------------------------
        IDENTIFICATION                   DIVISION.
-       PROGRAM-ID. ASSINACLI.
+       PROGRAM-ID. RELATV02.
       *=================================================================
       *== PROGRAMA....: ASSINACLI
       *== PROGRAMADOR.: RAFAEL DE OLIVEIRA

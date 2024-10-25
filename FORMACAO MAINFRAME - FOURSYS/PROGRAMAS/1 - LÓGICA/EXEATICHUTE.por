@@ -1,14 +1,14 @@
 programa
 {
-	inclua biblioteca Util --> util
+	inclua biblioteca Util --> util
 
-	inteiro numsorteado = Util.sorteia(1, 100)
+	inteiro numsorteado = Util.sorteia(1, 10)
 	inteiro chute = 0
 	inteiro tentativas = 0
 	
 	funcao inicio()
 	{
-		escreva("-----Tente adivinhar um numero sorteado de 1 a 100-----")
+		escreva("-----Tente adivinhar um numero sorteado de 1 a 100-----\n\n")
 
 		   enquanto (chute != numsorteado)      // Loop de chute do jogador
 		   {
@@ -33,7 +33,7 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 108; 
+ * @POSICAO-CURSOR = 223; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
